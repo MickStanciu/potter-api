@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package helloworld;
+
+option go_package = "github.com/MickStanciu/potter-api;potter_api";
+
+import "google/api/annotations.proto";
+
+service HogswartsService {
+  rpc GetTheGoodGuys (GoodGuysRequest) returns (GoodGuysResponse) {
+    option (google.api.http) = {
+      get: "/v1/goodguys"
+    };
+  }
+}
+
+message GoodGuysRequest {}
+
+// The response message containing the greetings
+message GoodGuysResponse {
+  repeated string message = 1;
+}
