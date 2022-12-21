@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-package helloworld;
+package potter;
 
-option go_package = "github.com/MickStanciu/potter-api;potter_api";
+option go_package = "github.com/MickStanciu/potter-api;potter";
 
 import "google/api/annotations.proto";
 
-service HogswartsService {
+service HogwartsService {
   rpc GetTheGoodGuys (GoodGuysRequest) returns (GoodGuysResponse) {
     option (google.api.http) = {
       get: "/v1/goodguys"
@@ -18,5 +18,16 @@ message GoodGuysRequest {}
 
 // The response message containing the greetings
 message GoodGuysResponse {
-  repeated string message = 1;
+  repeated Character people = 1;
 }
+
+message Character {
+  enum House {
+    HOUSE_UNKNOWN = 0;
+    HOUSE_GRIFFINDOR = 1;
+  }
+
+  string name = 1;
+    House house = 2;
+}
+
