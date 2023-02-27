@@ -24,7 +24,10 @@ message GoodGuysResponse {
 message Character {
   enum House {
     HOUSE_UNKNOWN = 0;
-    HOUSE_GRIFFINDOR = 1;
+    HOUSE_GRYFFINDOR = 1;
+    HOUSE_SLYTHERIN = 2;
+    HOUSE_RAVENCLAW = 3;
+    HOUSE_HUFFLEPUFF = 4;
   }
 
   string name = 1;

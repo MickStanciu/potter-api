@@ -15,19 +15,19 @@ func (s *Server) GetTheGoodGuys(context.Context, *potter.GoodGuysRequest) (*pott
 		People: []*potter.Character{
 			{
 				Name:  "Harry Potter",
-				House: potter.Character_HOUSE_GRIFFINDOR,
+				House: potter.Character_HOUSE_GRYFFINDOR,
 			},
 			{
-				Name:  "Lilli Potter",
-				House: potter.Character_HOUSE_GRIFFINDOR,
+				Name:  "Nevile Longbottom",
+				House: potter.Character_HOUSE_GRYFFINDOR,
 			},
 			{
-				Name:  "Nevil Longbottom",
-				House: potter.Character_HOUSE_GRIFFINDOR,
+				Name:  "Cho Chang",
+				House: potter.Character_HOUSE_RAVENCLAW,
 			},
 			{
-				Name:  "George Weasly",
-				House: potter.Character_HOUSE_GRIFFINDOR,
+				Name:  "Luna Lovegood",
+				House: potter.Character_HOUSE_RAVENCLAW,
 			},
 		},
 	}
