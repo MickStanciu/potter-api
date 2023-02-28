@@ -7,9 +7,11 @@ import (
 	"net/http"
 
 	"github.com/MickStanciu/potter-api/potterapi/internal/gen/potter"
+	"github.com/MickStanciu/potter-api/potterapi/internal/server"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/grpc/reflection"
 )
 
 func main() {
@@ -19,7 +21,8 @@ func main() {
 	}
 
 	grpcServer := grpc.NewServer()
-	potter.RegisterHogwartsServiceServer(grpcServer, &Server{})
+	potter.RegisterHogwartsServiceServer(grpcServer, &server.Server{})
+	reflection.Register(grpcServer)
 
 	go func() {
 		if err := grpcServer.Serve(listener); err != nil {

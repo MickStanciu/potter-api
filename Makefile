@@ -9,3 +9,19 @@ buildProtoFiles:
 		--grpc-gateway_out potterapi/internal/gen --grpc-gateway_opt paths=source_relative \
 		$(shell find ./proto -name '*.proto')
 	@echo "... done"
+
+.PHONY: run
+run:
+	@echo "starting server..."
+	@go run potterapi/cmd/main.go
+
+.PHONY: httpExample
+httpExample:
+	@echo "getting the Good Guys"
+	@curl localhost:8080/v1/goodguys | json_pp
+
+.PHONY: grpcExample
+grpcExample:
+	@echo "getting the Good Guys"
+	@grpcurl -plaintext localhost:9000 potter.HogwartsService/GetTheGoodGuys
+
