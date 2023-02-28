@@ -31,6 +31,6 @@ message Character {
   }
 
   string name = 1;
-    House house = 2;
+  House house = 2;
 }
 
