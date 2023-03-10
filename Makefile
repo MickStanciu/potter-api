@@ -20,6 +20,11 @@ httpExample:
 	@echo "getting the Good Guys"
 	@curl localhost:8080/v1/goodguys | json_pp
 
+.PHONY: httpExample2
+httpExample2:
+	@echo "getting the Bad Guys"
+	@curl localhost:8080/v1/badguys | json_pp
+
 .PHONY: grpcExample
 grpcExample:
 	@echo "getting the Good Guys"

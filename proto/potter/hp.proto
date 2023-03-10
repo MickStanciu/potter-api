@@ -12,9 +12,20 @@ service HogwartsService {
       get: "/v1/goodguys"
     };
   }
+
+  rpc GetTheBadGuys (BadGuysRequest) returns (BadGuysResponse) {
+    option (google.api.http) = {
+      get: "/v1/badguys"
+    };
+  }
 }
 
 message GoodGuysRequest {}
+message BadGuysRequest {}
+
+message BadGuysResponse {
+  string name = 1;
+}
 
 // The response message containing the greetings
 message GoodGuysResponse {

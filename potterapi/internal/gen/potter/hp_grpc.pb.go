@@ -23,6 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type HogwartsServiceClient interface {
 	GetTheGoodGuys(ctx context.Context, in *GoodGuysRequest, opts ...grpc.CallOption) (*GoodGuysResponse, error)
+	GetTheBadGuys(ctx context.Context, in *BadGuysRequest, opts ...grpc.CallOption) (*BadGuysResponse, error)
 }
 
 type hogwartsServiceClient struct {
@@ -42,11 +43,21 @@ func (c *hogwartsServiceClient) GetTheGoodGuys(ctx context.Context, in *GoodGuys
 	return out, nil
 }
 
+func (c *hogwartsServiceClient) GetTheBadGuys(ctx context.Context, in *BadGuysRequest, opts ...grpc.CallOption) (*BadGuysResponse, error) {
+	out := new(BadGuysResponse)
+	err := c.cc.Invoke(ctx, "/potter.HogwartsService/GetTheBadGuys", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // HogwartsServiceServer is the server API for HogwartsService service.
 // All implementations must embed UnimplementedHogwartsServiceServer
 // for forward compatibility
 type HogwartsServiceServer interface {
 	GetTheGoodGuys(context.Context, *GoodGuysRequest) (*GoodGuysResponse, error)
+	GetTheBadGuys(context.Context, *BadGuysRequest) (*BadGuysResponse, error)
 	mustEmbedUnimplementedHogwartsServiceServer()
 }
 
@@ -56,6 +67,9 @@ type UnimplementedHogwartsServiceServer struct {
 
 func (UnimplementedHogwartsServiceServer) GetTheGoodGuys(context.Context, *GoodGuysRequest) (*GoodGuysResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTheGoodGuys not implemented")
+}
+func (UnimplementedHogwartsServiceServer) GetTheBadGuys(context.Context, *BadGuysRequest) (*BadGuysResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTheBadGuys not implemented")
 }
 func (UnimplementedHogwartsServiceServer) mustEmbedUnimplementedHogwartsServiceServer() {}
 
@@ -88,6 +102,24 @@ func _HogwartsService_GetTheGoodGuys_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _HogwartsService_GetTheBadGuys_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BadGuysRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(HogwartsServiceServer).GetTheBadGuys(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/potter.HogwartsService/GetTheBadGuys",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(HogwartsServiceServer).GetTheBadGuys(ctx, req.(*BadGuysRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // HogwartsService_ServiceDesc is the grpc.ServiceDesc for HogwartsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -98,6 +130,10 @@ var HogwartsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetTheGoodGuys",
 			Handler:    _HogwartsService_GetTheGoodGuys_Handler,
+		},
+		{
+			MethodName: "GetTheBadGuys",
+			Handler:    _HogwartsService_GetTheBadGuys_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

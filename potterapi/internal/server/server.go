@@ -33,3 +33,7 @@ func (s *Server) GetTheGoodGuys(context.Context, *potter.GoodGuysRequest) (*pott
 	}
 	return &fakeResponse, nil
 }
+
+func (s *Server) GetTheBadGuys(context.Context, *potter.BadGuysRequest) (*potter.BadGuysResponse, error) {
+	return &potter.BadGuysResponse{Name: "Voldermort"}, nil
+}
